@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100" height="100" fill="#F5F4F0"/>
+  <!-- 3 arcs centered at (50,58), simplified for small sizes -->
+  <path d="M 5,58 A 45,45 0 0 1 95,58" fill="none" stroke="#C4A882" stroke-width="3.5"/>
+  <path d="M 16,58 A 34,34 0 0 1 84,58" fill="none" stroke="#C4A882" stroke-width="3.5"/>
+  <path d="M 27,58 A 23,23 0 0 1 73,58" fill="none" stroke="#C4A882" stroke-width="3.5"/>
+  <!-- Scaena base -->
+  <rect x="5" y="58" width="90" height="18" fill="none" stroke="#C4A882" stroke-width="3.5"/>
+  <!-- 3 small columns each side -->
+  <rect x="10" y="60" width="3" height="14" fill="#C4A882"/>
+  <rect x="19" y="60" width="3" height="14" fill="#C4A882"/>
+  <rect x="28" y="60" width="3" height="14" fill="#C4A882"/>
+  <rect x="69" y="60" width="3" height="14" fill="#C4A882"/>
+  <rect x="78" y="60" width="3" height="14" fill="#C4A882"/>
+  <rect x="87" y="60" width="3" height="14" fill="#C4A882"/>
+  <!-- Central arch -->
+  <path d="M 42,74 L 42,66 A 8,8 0 0 1 58,66 L 58,74" fill="none" stroke="#C4A882" stroke-width="3"/>
+</svg>
