@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leptis Studio</title>
+<meta name="description" content="Leptis Studio — personal projects, based in Switzerland.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:    #F5F4F0;
+  --gold:  #C4A882;
+  --ink:   #1a1a1a;
+  --muted: #8a8a8a;
+}
+
+html, body {
+  width: 100%; height: 100%;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  overflow: hidden;
+}
+
+.logo-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo-area.interactive { cursor: pointer; }
+.logo-area.interactive:hover .wordmark { opacity: 0.5; }
+
+.mark { width: min(460px, 88vw); display: block; }
+
+.dp, .dp-thin {
+  fill: none;
+  stroke: var(--gold);
+  stroke-dasharray: 9999;
+  stroke-dashoffset: 9999;
+}
+.dp      { stroke-width: 1.5; }
+.dp-thin { stroke-width: 1; }
+
+.col {
+  fill: var(--gold);
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transform: scaleY(0);
+}
+
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes rise { to { transform: scaleY(1); } }
+
+.words {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  margin-top: 26px;
+}
+
+.wordmark {
+  font-family: 'Jost', system-ui, sans-serif;
+  font-size: clamp(13px, 2.6vw, 17px);
+  font-weight: 300;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  animation: appear 0.9s cubic-bezier(0.25,0,0,1) 3.5s forwards;
+}
+
+
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Overlay ─────────────────────────── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(245,244,240,0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 100;
+}
+
+.overlay.open { opacity: 1; pointer-events: all; }
+
+.dialog {
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.07);
+  padding: clamp(32px, 6vw, 52px);
+  max-width: 400px;
+  width: 100%;
+  transform: translateY(14px);
+  transition: transform 0.45s cubic-bezier(0.25,0,0,1);
+}
+
+.overlay.open .dialog { transform: translateY(0); }
+
+.dialog p {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(15px, 2.2vw, 17px);
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--ink);
+  margin-bottom: 18px;
+}
+
+.projects {
+  margin: 22px 0;
+  border-top: 1px solid rgba(0,0,0,0.07);
+  padding-top: 22px;
+}
+
+
+
+.project { margin-bottom: 14px; }
+.project:last-child { margin-bottom: 0; }
+
+.project-name {
+  font-family: 'Jost', system-ui, sans-serif;
+  font-size: clamp(13px, 1.8vw, 14px);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+
+.project-name a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(196,168,130,0.4);
+  transition: border-color 0.2s;
+}
+.project-name a:hover { border-bottom-color: var(--gold); }
+
+.project-desc {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(13px, 1.8vw, 15px);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.origin {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(12px, 1.6vw, 13px);
+  font-weight: 400;
+  line-height: 1.7;
+  color: #b8b8b8;
+  font-style: italic;
+  margin-bottom: 22px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+}
+
+
+.contact {
+  margin-top: 22px;
+  border-top: 1px solid rgba(0,0,0,0.07);
+  padding-top: 18px;
+}
+
+.contact a {
+  font-family: 'Jost', system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  color: #b8b8b8;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.contact a:hover { color: var(--ink); }
+
+</style>
+</head>
+<body>
+
+<div class="logo-area" id="logo-area">
+  <svg class="mark" viewBox="0 0 570 390" xmlns="http://www.w3.org/2000/svg">
+    <path class="dp"      id="s-floor" d="M 85,363 H 485"/>
+    <path class="dp"      id="s-r"     d="M 485,363 V 285"/>
+    <path class="dp"      id="s-l"     d="M 85,363 V 285"/>
+    <path class="dp"      id="s-top"   d="M 85,285 H 485"/>
+    <path class="dp"      id="stylo"   d="M 85,358 H 485"/>
+    <path class="dp"      id="entab"   d="M 85,289 H 485"/>
+    <rect class="col" id="c1" x=" 98" y="289" width="4" height="69"/>
+    <rect class="col" id="c8" x="468" y="289" width="4" height="69"/>
+    <rect class="col" id="c2" x="135" y="289" width="4" height="69"/>
+    <rect class="col" id="c7" x="431" y="289" width="4" height="69"/>
+    <rect class="col" id="c3" x="172" y="289" width="4" height="69"/>
+    <rect class="col" id="c6" x="394" y="289" width="4" height="69"/>
+    <rect class="col" id="c4" x="209" y="289" width="4" height="69"/>
+    <rect class="col" id="c5" x="357" y="289" width="4" height="69"/>
+    <path class="dp"      id="arch" d="M 240,358 L 240,336 A 45,45 0 0 1 330,336 L 330,358"/>
+    <path class="dp"      id="a1"   d="M 193,265 A  92, 92 0 0 1 377,265"/>
+    <path class="dp"      id="a2"   d="M 171,265 A 114,114 0 0 1 399,265"/>
+    <path class="dp"      id="a3"   d="M 141,265 A 144,144 0 0 1 429,265"/>
+    <path class="dp"      id="a4"   d="M 120,265 A 165,165 0 0 1 450,265"/>
+    <path class="dp"      id="a5"   d="M  85,265 A 200,200 0 0 1 485,265"/>
+    <path class="dp-thin" id="r1"   d="M 359,211 L 447,147"/>
+    <path class="dp-thin" id="r2"   d="M 313,178 L 347, 75"/>
+    <path class="dp-thin" id="r3"   d="M 257,178 L 223, 75"/>
+    <path class="dp-thin" id="r4"   d="M 211,211 L 123,147"/>
+  </svg>
+
+  <div class="words">
+    <div class="wordmark">Leptis Studio</div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay" onclick="handleOverlay(event)">
+  <div class="dialog" id="dialog">
+
+    <p class="origin">Leptis (Magna) is a Roman city on the Libyan coast. One of the best-preserved ancient theatres in the world. The logo is drawn from its floor plan.</p>
+
+    <p>A small creative practice for personal projects, based in Switzerland.</p>
+    <p>A space for work that brings people together through conversation, arts and hobbies.</p>
+
+    <div class="projects">
+      <div class="project">
+        <div class="project-name">
+          <a href="https://ahmedwarreth.com/themajlispodcast" target="_blank" rel="noopener">The Majlis</a>
+        </div>
+        <div class="project-desc">A podcast about people's stories and the paths that shaped them.</div>
+      </div>
+
+      <div class="project">
+        <div class="project-name">
+          <a href="https://gymcheckin.ch" target="_blank" rel="noopener">gymcheckin.ch</a>
+        </div>
+        <div class="project-desc">Gym management software built around social connection and gamification.</div>
+      </div>
+    </div>
+
+    <div class="contact">
+      <a href="https://linkedin.com/in/ahmedwarreth" target="_blank" rel="noopener">linkedin.com/in/ahmedwarreth</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  const E    = id => document.getElementById(id);
+  const ease = 'cubic-bezier(0.25,0,0,1)';
+  const soft = 'cubic-bezier(0.4,0,0.2,1)';
+
+  document.querySelectorAll('.dp,.dp-thin').forEach(p => {
+    const l = p.getTotalLength();
+    p.style.strokeDasharray = p.style.strokeDashoffset = l;
+  });
+
+  const draw = (id,d,t,e) => E(id).style.animation=`draw ${t}s ${e||ease} ${d}s forwards`;
+  const rise = (id,d)     => E(id).style.animation=`rise 0.45s cubic-bezier(0.2,0,0,1) ${d}s forwards`;
+
+  draw('s-floor',0.00,0.35,soft);
+  draw('s-r',0.35,0.22,soft); draw('s-l',0.35,0.22,soft);
+  draw('s-top',0.57,0.28,soft);
+  draw('stylo',0.85,0.28,soft); draw('entab',0.85,0.28,soft);
+  rise('c1',1.10); rise('c8',1.10);
+  rise('c2',1.22); rise('c7',1.22);
+  rise('c3',1.34); rise('c6',1.34);
+  rise('c4',1.46); rise('c5',1.46);
+  draw('arch',1.75,0.60,soft);
+  draw('a1',2.25,0.42); draw('a2',2.42,0.46);
+  draw('a3',2.60,0.50); draw('a4',2.76,0.54); draw('a5',2.92,0.58);
+  draw('r1',3.15,0.22,soft); draw('r4',3.15,0.22,soft);
+  draw('r2',3.24,0.22,soft); draw('r3',3.24,0.22,soft);
+
+  setTimeout(() => {
+    const a = E('logo-area');
+    a.classList.add('interactive');
+    a.addEventListener('click', open_);
+  }, 4400);
+
+  document.addEventListener('keydown', e => { if(e.key==='Escape') close_(); });
+})();
+
+function open_()  { document.getElementById('overlay').classList.add('open'); }
+function close_() { document.getElementById('overlay').classList.remove('open'); }
+function handleOverlay(e) { if(e.target===document.getElementById('overlay')) close_(); }
+</script>
+</body>
+</html>
