@@ -564,7 +564,14 @@ html, body {
     const open = wrap.classList.toggle('open');
     toggle.classList.toggle('active', open);
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    if (open) setTimeout(() => E('cf-subject').focus(), 350);
+    if (open) {
+      setTimeout(() => {
+        wrap.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      }, 500);
+      setTimeout(() => {
+        E('cf-subject').focus({ preventScroll: true });
+      }, 900);
+    }
   });
 
   /* Click anywhere outside the form (or toggle) collapses it */
