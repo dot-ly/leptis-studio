@@ -239,6 +239,16 @@ html, body {
   margin-top: 22px;
 }
 
+.contact-prompt {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(16px, 2vw, 18px);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ink);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
 .contact-form {
   text-align: left;
   display: flex;
@@ -405,7 +415,7 @@ html, body {
   <div class="dialog" id="dialog">
 
   <p>A small creative practice based in Switzerland.</p>
-  <p>Our work strengthens the communities we're part of.</p>
+  <p>Software for hard problems. Built for the communities we're part of.</p>
    
     <div class="projects">
       <div class="project">
@@ -434,6 +444,7 @@ html, body {
     </div>
 
     <div class="contact-form-wrap" id="contact-form-wrap">
+      <p class="contact-prompt">Have an idea worth building? Reach out.</p>
       <form id="contact-form" class="contact-form" novalidate>
         <div class="field">
           <label for="cf-subject">Subject</label>
